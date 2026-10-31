@@ -2,7 +2,7 @@
 
 ## Distribution status
 
-OzDoro is currently distributed as source. Signed/notarized downloads and a Homebrew Cask are not available. Local builds require no paid Apple Developer membership.
+The v0.1.0 release remains source-only. Starting with v0.1.1, explicitly unsigned/unnotarized universal developer builds are available through a personal Homebrew tap. Signed/notarized downloads are not available. Local builds require no paid Apple Developer membership.
 
 Developer ID signing and notarization require Apple credentials that the project does not currently have. Unsigned downloads may be blocked by Gatekeeper; ad hoc signing does not provide publisher trust. See [Apple Developer ID](https://developer.apple.com/developer-id/) and [notarization requirements](https://developer.apple.com/documentation/security/notarizing-macos-software-before-distribution).
 
@@ -41,5 +41,43 @@ keychains. Developer ID signing and notarization are not part of this process.
 6. Only after approval, create and push an annotated tag and publish the reviewed
    release using GitHub's automatically generated source archives.
 
-Do not create a Homebrew Cask. Future binary distribution needs a separately
-reviewed signing and notarization plan; never bypass macOS security protections.
+## Unsigned developer builds and personal Homebrew tap
+
+The separate `unsigned-release.yml` workflow is manual-only and accepts an existing
+annotated version tag whose commit belongs to main. It rejects v0.1.0. The existing
+readiness workflow and disabled signing script remain unchanged; there is currently
+no operational signed/notarized release workflow to run.
+
+1. Bump both Xcode configurations and add `Docs/Releases/VERSION.md`. Record manual
+   runtime gaps rather than implying build success proves runtime compatibility.
+2. Run formatting, localization, unit tests and universal Debug/Release builds.
+3. Run `python3 Scripts/package_unsigned.py --app build/Build/Products/Release/OzDoro.app --version VERSION`.
+   Repeat into another output directory and compare ZIP bytes. Validate the checksum.
+4. Merge through a PR with required CI. Create a new annotated tag; never replace
+   existing tags. Dispatch the unsigned workflow from main after publication approval.
+5. The build job has read-only permissions. Only the publish job has contents write.
+   It verifies checksums and creates a new release without replacing assets. No Apple
+   credentials, signing, notarization, or security overrides are used.
+6. Download the published ZIP and checksum and compare them before updating the tap.
+   Use its actual URL and SHA-256 in `ozhantr/homebrew-tap/Casks/ozdoro.rb`.
+7. Run `brew style`, `brew audit --cask --strict --online`, download/checksum checks,
+   install, uninstall and reinstall. Preserve quarantine. Separately record Gatekeeper
+   assessment; an installed app is not necessarily permitted to launch.
+
+The ZIP has sorted entries, fixed timestamps, normalized permissions and uncompressed
+contents. Repackaging identical bundle bytes is reproducible. Different Xcode versions
+or independent compilations are not promised to yield byte-identical binaries.
+
+Install: `brew install --cask ozhantr/tap/ozdoro`. Update with `brew update` then
+`brew upgrade --cask ozhantr/tap/ozdoro`; uninstall with `brew uninstall --cask ozhantr/tap/ozdoro`.
+
+A personal tap does not imply official Homebrew acceptance or Apple trust. Official
+inclusion requires a current supported distribution passing Gatekeeper checks,
+working update detection, demonstrated public interest and maintainer review.
+Unsigned/unnotarized developer builds do not satisfy the official signing baseline.
+Never disable Gatekeeper/SIP, remove quarantine, or document bypasses.
+
+References: [Cask Cookbook](https://docs.brew.sh/Cask-Cookbook),
+[Tap maintenance](https://docs.brew.sh/How-to-Create-and-Maintain-a-Tap),
+[Acceptable Casks](https://docs.brew.sh/Acceptable-Casks),
+[Tap Trust](https://docs.brew.sh/Tap-Trust).

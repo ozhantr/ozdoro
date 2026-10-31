@@ -14,6 +14,31 @@ A minimal Pomodoro timer for the macOS menu bar, built with SwiftUI and AppKit. 
 
 Sound and break settings are saved between launches. Timer progress resets when you quit. If a focus session expires while your Mac sleeps, a full break starts on wake; an expired break leaves the next focus session ready to start.
 
+## Homebrew (personal tap)
+
+Unsigned, unnotarized developer builds are distributed through the personal tap:
+
+```sh
+brew install --cask ozhantr/tap/ozdoro
+```
+
+This installs the app but does **not** establish Apple publisher trust. Gatekeeper
+may block launching it. No Developer ID certificate or notarization is provided;
+we do not provide security-bypass instructions. Build from source below if this
+distribution does not meet your needs.
+
+```sh
+brew update
+brew upgrade --cask ozhantr/tap/ozdoro
+brew uninstall --cask ozhantr/tap/ozdoro
+```
+
+Normal uninstall preserves preferences; `brew uninstall --cask --zap ozhantr/tap/ozdoro`
+also removes OzDoro preferences. This is a personal tap, not official Homebrew
+catalog inclusion. `brew install --cask ozdoro` is not advertised for new users.
+Fully qualified installation trusts this specific Cask definition, not the whole
+tap; Homebrew tap trust is separate from macOS Gatekeeper trust.
+
 ## Build and run
 
 Requires macOS 13 or later and Xcode 15 or later. Supports Apple Silicon and Intel Macs.
@@ -32,7 +57,7 @@ make install
 
 Alternatively, open `OzDoro.xcodeproj` in Xcode, select **My Mac**, and press **⌘R**.
 
-Signed downloads and Homebrew installation are not available yet. Building from source requires no paid Apple Developer membership.
+Developer ID signed and notarized downloads are not available. Building from source requires no paid Apple Developer membership.
 
 ## Language
 
