@@ -44,6 +44,9 @@ for resource in ['AppIcon.icns', 'Assets.car', *[f'{lang}.lproj/Localizable.stri
 paths = sorted(app.rglob('*'))
 if any(p.is_symlink() or not (p.is_file() or p.is_dir()) for p in paths):
     parser.error('unexpected symlink or special file in application bundle')
+license_bytes = (Path(__file__).resolve().parents[1] / 'LICENSE').read_bytes()
+if b'MIT License' not in license_bytes:
+    parser.error('missing MIT license notice')
 args.output_dir.mkdir(parents=True, exist_ok=True)
 archive = args.output_dir / f'OzDoro-{args.version}-macOS-universal-unsigned.zip'
 # Stored entries avoid compressor-version differences; normalize timestamps and modes.
@@ -56,7 +59,13 @@ with zipfile.ZipFile(archive, 'w', compression=zipfile.ZIP_STORED) as output:
         mode = 0o755 if path.stat().st_mode & 0o111 else 0o644
         entry.external_attr = (stat.S_IFREG | mode) << 16
         output.writestr(entry, path.read_bytes())
+    license_entry = zipfile.ZipInfo('OzDoro.app/Contents/Resources/LICENSE', (1980, 1, 1, 0, 0, 0))
+    license_entry.create_system = 3
+    license_entry.external_attr = (stat.S_IFREG | 0o644) << 16
+    output.writestr(license_entry, license_bytes)
 with zipfile.ZipFile(archive) as check:
+    if check.read('OzDoro.app/Contents/Resources/LICENSE') != license_bytes:
+        raise SystemExit('packaged MIT notice mismatch')
     if check.testzip() is not None:
         raise SystemExit('ZIP integrity check failed')
 digest = hashlib.sha256(archive.read_bytes()).hexdigest()

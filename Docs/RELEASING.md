@@ -2,7 +2,7 @@
 
 ## Distribution status
 
-The v0.1.0 release remains source-only. Starting with v0.1.1, explicitly unsigned/unnotarized universal developer builds are available through a personal Homebrew tap. Signed/notarized downloads are not available. Local builds require no paid Apple Developer membership.
+The v0.1.0 release remains source-only. Starting with v0.1.2, explicitly unsigned/unnotarized universal developer builds are available through a personal Homebrew tap. Signed/notarized downloads are not available. Local builds require no paid Apple Developer membership.
 
 Developer ID signing and notarization require Apple credentials that the project does not currently have. Unsigned downloads may be blocked by Gatekeeper; ad hoc signing does not provide publisher trust. See [Apple Developer ID](https://developer.apple.com/developer-id/) and [notarization requirements](https://developer.apple.com/documentation/security/notarizing-macos-software-before-distribution).
 
@@ -44,7 +44,7 @@ keychains. Developer ID signing and notarization are not part of this process.
 ## Unsigned developer builds and personal Homebrew tap
 
 The separate `unsigned-release.yml` workflow is manual-only and accepts an existing
-annotated version tag whose commit belongs to main. It rejects v0.1.0. The existing
+annotated version tag whose commit belongs to main. It rejects v0.1.0 and the canceled v0.1.1 binary release. The existing
 readiness workflow and disabled signing script remain unchanged; there is currently
 no operational signed/notarized release workflow to run.
 
@@ -64,6 +64,7 @@ no operational signed/notarized release workflow to run.
    install, uninstall and reinstall. Preserve quarantine. Separately record Gatekeeper
    assessment; an installed app is not necessarily permitted to launch.
 
+The ZIP includes the MIT license inside the app so it survives Cask installation.
 The ZIP has sorted entries, fixed timestamps, normalized permissions and uncompressed
 contents. Repackaging identical bundle bytes is reproducible. Different Xcode versions
 or independent compilations are not promised to yield byte-identical binaries.

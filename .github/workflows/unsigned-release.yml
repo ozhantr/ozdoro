@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: 'Existing protected vMAJOR.MINOR.PATCH tag on main (never v0.1.0)'
+        description: 'Existing protected vMAJOR.MINOR.PATCH tag on main (never v0.1.0 or v0.1.1)'
         required: true
         type: string
 
@@ -30,7 +30,7 @@ jobs:
       - name: Validate existing annotated tag and ancestry
         run: |
           [[ "$RELEASE_TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]
-          [[ "$RELEASE_TAG" != v0.1.0 ]]
+          [[ "$RELEASE_TAG" != v0.1.0 && "$RELEASE_TAG" != v0.1.1 ]]
           [[ "$(git cat-file -t "refs/tags/$RELEASE_TAG")" == tag ]]
           git merge-base --is-ancestor "refs/tags/$RELEASE_TAG^{commit}" origin/main
           git checkout --detach "refs/tags/$RELEASE_TAG^{commit}"
