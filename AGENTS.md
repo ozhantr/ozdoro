@@ -23,4 +23,6 @@
 - Never force-push without explicit approval.
 - Never disable Gatekeeper, SIP or other macOS security protections.
 - Keep Actions permissions minimal and release workflows secure.
-- Distribution is source-only. Do not attempt Developer ID signing or notarization.
+- Preserve the v0.1.0 source-only release. Binary releases must be labeled unsigned/unnotarized.
+- Do not attempt Developer ID signing or notarization without a separately authorized credential setup.
+- Never remove quarantine or add security-bypass steps to packaging or Homebrew Casks.

@@ -1,0 +1,78 @@
+name: Publish unsigned developer build
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Existing protected vMAJOR.MINOR.PATCH tag on main (never v0.1.0)'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: unsigned-release-${{ inputs.tag }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: github.ref == 'refs/heads/main'
+    runs-on: macos-15
+    timeout-minutes: 30
+    env:
+      RELEASE_TAG: ${{ inputs.tag }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Validate existing annotated tag and ancestry
+        run: |
+          [[ "$RELEASE_TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]
+          [[ "$RELEASE_TAG" != v0.1.0 ]]
+          [[ "$(git cat-file -t "refs/tags/$RELEASE_TAG")" == tag ]]
+          git merge-base --is-ancestor "refs/tags/$RELEASE_TAG^{commit}" origin/main
+          git checkout --detach "refs/tags/$RELEASE_TAG^{commit}"
+      - name: Test and build universal configurations
+        run: |
+          make verify
+          make build-debug
+          make build
+          lipo build/Build/Products/Debug/OzDoro.app/Contents/MacOS/OzDoro -verify_arch arm64 x86_64
+      - name: Package and verify reproducibility
+        run: |
+          python3 Scripts/package_unsigned.py --app build/Build/Products/Release/OzDoro.app --version "${RELEASE_TAG#v}"
+          python3 Scripts/package_unsigned.py --app build/Build/Products/Release/OzDoro.app --version "${RELEASE_TAG#v}" --output-dir build/repackage
+          cmp "dist/OzDoro-${RELEASE_TAG#v}-macOS-universal-unsigned.zip" "build/repackage/OzDoro-${RELEASE_TAG#v}-macOS-universal-unsigned.zip"
+          (cd dist && shasum -a 256 -c *.sha256)
+          cp "Docs/Releases/${RELEASE_TAG#v}.md" dist/release-notes.md
+      - uses: actions/upload-artifact@v7
+        with:
+          name: unsigned-release
+          path: dist/*
+          if-no-files-found: error
+          retention-days: 7
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: unsigned-release
+          path: dist
+      - name: Publish new release without replacing existing assets or tags
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ inputs.tag }}
+        run: |
+          cd dist
+          sha256sum -c *.sha256
+          gh release create "$RELEASE_TAG" ./*.zip ./*.sha256 \
+            --verify-tag --title "OzDoro $RELEASE_TAG — Unsigned Developer Build" \
+            --notes-file release-notes.md --latest
