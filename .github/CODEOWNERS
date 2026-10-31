@@ -1,0 +1,4 @@
+# Request maintainer review for automation and release changes.
+/.github/ @ozhantr
+/Scripts/ @ozhantr
+/Docs/RELEASING.md @ozhantr

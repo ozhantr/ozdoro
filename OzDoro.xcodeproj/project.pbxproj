@@ -1,0 +1,265 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AB0000000000000000000011 /* OzDoroApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0000000000000000000021 /* OzDoroApp.swift */; };
+		AB0000000000000000000012 /* PomodoroCycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0000000000000000000022 /* PomodoroCycle.swift */; };
+		AB0000000000000000000013 /* SystemSoundPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0000000000000000000023 /* SystemSoundPlayer.swift */; };
+		AB0000000000000000000014 /* PomodoroTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0000000000000000000024 /* PomodoroTimer.swift */; };
+		AB0000000000000000000015 /* MenuBarContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0000000000000000000025 /* MenuBarContent.swift */; };
+		AB0000000000000000000016 /* OzDoroAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0000000000000000000027 /* OzDoroAppDelegate.swift */; };
+		AB0000000000000000000017 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0000000000000000000028 /* L10n.swift */; };
+		AB0000000000000000000018 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = AB0000000000000000000029 /* Localizable.xcstrings */; };
+		AB0000000000000000000019 /* PomodoroTimerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB000000000000000000002A /* PomodoroTimerEngine.swift */; };
+		AB000000000000000000001A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB000000000000000000002B /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		AB0000000000000000000021 /* OzDoroApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OzDoroApp.swift; sourceTree = "<group>"; };
+		AB0000000000000000000022 /* PomodoroCycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroCycle.swift; sourceTree = "<group>"; };
+		AB0000000000000000000023 /* SystemSoundPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemSoundPlayer.swift; sourceTree = "<group>"; };
+		AB0000000000000000000024 /* PomodoroTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroTimer.swift; sourceTree = "<group>"; };
+		AB0000000000000000000025 /* MenuBarContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarContent.swift; sourceTree = "<group>"; };
+		AB0000000000000000000026 /* OzDoro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OzDoro.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AB0000000000000000000027 /* OzDoroAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OzDoroAppDelegate.swift; sourceTree = "<group>"; };
+		AB0000000000000000000028 /* L10n.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L10n.swift; sourceTree = "<group>"; };
+		AB0000000000000000000029 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		AB000000000000000000002A /* PomodoroTimerEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroTimerEngine.swift; sourceTree = "<group>"; };
+		AB000000000000000000002B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AB0000000000000000000031 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = ();
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AB0000000000000000000033 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (AB0000000000000000000018 /* Localizable.xcstrings in Resources */, AB000000000000000000001A /* Assets.xcassets in Resources */,);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXGroup section */
+		AB0000000000000000000040 = {
+			isa = PBXGroup;
+			children = (
+				AB0000000000000000000041 /* OzDoro */,
+				AB0000000000000000000045 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AB0000000000000000000041 /* OzDoro */ = {
+			isa = PBXGroup;
+			children = (
+				AB0000000000000000000042 /* App */,
+				AB0000000000000000000043 /* Core */,
+				AB0000000000000000000044 /* Services */,
+				AB0000000000000000000046 /* UI */,
+				AB0000000000000000000047 /* Resources */,
+			);
+			path = OzDoro;
+			sourceTree = "<group>";
+		};
+		AB0000000000000000000042 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				AB0000000000000000000021 /* OzDoroApp.swift */,
+				AB0000000000000000000027 /* OzDoroAppDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		AB0000000000000000000043 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				AB0000000000000000000022 /* PomodoroCycle.swift */,
+				AB000000000000000000002A /* PomodoroTimerEngine.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		AB0000000000000000000044 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				AB0000000000000000000023 /* SystemSoundPlayer.swift */,
+				AB0000000000000000000024 /* PomodoroTimer.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		AB0000000000000000000046 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				AB0000000000000000000025 /* MenuBarContent.swift */,
+				AB0000000000000000000028 /* L10n.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		AB0000000000000000000045 /* Products */ = {
+			isa = PBXGroup;
+			children = (AB0000000000000000000026 /* OzDoro.app */,);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AB0000000000000000000047 /* Resources */ = {
+			isa = PBXGroup;
+			children = (AB0000000000000000000029 /* Localizable.xcstrings */, AB000000000000000000002B /* Assets.xcassets */,);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AB0000000000000000000051 /* OzDoro */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AB0000000000000000000053 /* Build configuration list for PBXNativeTarget "OzDoro" */;
+			buildPhases = (
+				AB0000000000000000000032 /* Sources */,
+				AB0000000000000000000031 /* Frameworks */,
+				AB0000000000000000000033 /* Resources */,
+			);
+			buildRules = ();
+			dependencies = ();
+			name = OzDoro;
+			productName = OzDoro;
+			productReference = AB0000000000000000000026 /* OzDoro.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AB0000000000000000000050 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					AB0000000000000000000051 = {CreatedOnToolsVersion = 15.0; };
+				};
+			};
+			buildConfigurationList = AB0000000000000000000052 /* Build configuration list for PBXProject "OzDoro" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (en, Base, tr, de,);
+			mainGroup = AB0000000000000000000040;
+			productRefGroup = AB0000000000000000000045 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (AB0000000000000000000051 /* OzDoro */,);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AB0000000000000000000032 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB0000000000000000000011 /* OzDoroApp.swift in Sources */,
+				AB0000000000000000000016 /* OzDoroAppDelegate.swift in Sources */,
+				AB0000000000000000000012 /* PomodoroCycle.swift in Sources */,
+				AB0000000000000000000019 /* PomodoroTimerEngine.swift in Sources */,
+				AB0000000000000000000013 /* SystemSoundPlayer.swift in Sources */,
+				AB0000000000000000000014 /* PomodoroTimer.swift in Sources */,
+				AB0000000000000000000015 /* MenuBarContent.swift in Sources */,
+				AB0000000000000000000017 /* L10n.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		AB0000000000000000000061 /* Debug project */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+			};
+			name = Debug;
+		};
+		AB0000000000000000000062 /* Release project */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		AB0000000000000000000063 /* Debug target */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGNING_ALLOWED = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_KEY_CFBundleDisplayName = OzDoro;
+				MARKETING_VERSION = 0.1.0;
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_KEY_LSUIElement = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.github.ozhantr.ozdoro";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		AB0000000000000000000064 /* Release target */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGNING_ALLOWED = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_KEY_CFBundleDisplayName = OzDoro;
+				MARKETING_VERSION = 0.1.0;
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_KEY_LSUIElement = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.github.ozhantr.ozdoro";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AB0000000000000000000052 /* Build configuration list for PBXProject "OzDoro" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AB0000000000000000000061 /* Debug project */,
+				AB0000000000000000000062 /* Release project */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AB0000000000000000000053 /* Build configuration list for PBXNativeTarget "OzDoro" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AB0000000000000000000063 /* Debug target */,
+				AB0000000000000000000064 /* Release target */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AB0000000000000000000050 /* Project object */;
+}

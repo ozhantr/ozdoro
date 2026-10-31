@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  macos:
+    name: macOS ${{ matrix.configuration }}
+    runs-on: macos-15
+    timeout-minutes: 30
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Toolchain information
+        run: |
+          xcodebuild -version
+          swift --version
+
+      - name: Check Swift formatting and lint rules
+        run: make format-check
+
+      - name: Validate translations
+        run: make check-localizations
+
+      - name: Unit-test domain and real countdown engine
+        run: make test
+
+      - name: Compile macOS app (unsigned CI build)
+        run: |
+          xcodebuild \
+            -project OzDoro.xcodeproj \
+            -scheme OzDoro \
+            -configuration ${{ matrix.configuration }} \
+            -derivedDataPath build \
+            -destination 'generic/platform=macOS' \
+            'ARCHS=arm64 x86_64' \
+            ONLY_ACTIVE_ARCH=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            build
+
+      - name: Verify universal executable
+        run: lipo "build/Build/Products/${{ matrix.configuration }}/OzDoro.app/Contents/MacOS/OzDoro" -verify_arch arm64 x86_64

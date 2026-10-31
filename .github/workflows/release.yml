@@ -1,0 +1,25 @@
+name: Source release readiness (no publication)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  readiness:
+    runs-on: macos-15
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Validate source and build universal configurations
+        run: |
+          make verify
+          make build-debug
+          make build
+          lipo build/Build/Products/Debug/OzDoro.app/Contents/MacOS/OzDoro -verify_arch arm64 x86_64
+          lipo build/Build/Products/Release/OzDoro.app/Contents/MacOS/OzDoro -verify_arch arm64 x86_64
+      - name: Explain publication policy
+        run: echo 'Readiness only. Source release publication requires explicit maintainer approval.'
